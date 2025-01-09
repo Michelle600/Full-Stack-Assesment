@@ -24,35 +24,31 @@ export default function Layout() {
     <>
       <Navbar bg="black" variant="dark" expand="lg" className="px-3">
         <Navbar.Brand href="/mybookings" className="me-auto ms-3">
-          Booking Apps
+          <i className="bi bi-luggage-fill"></i> <em>Booking Apps</em>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto me-3">
             <Nav.Link
               href="/home"
-              active={location.pathname === '/home'}
               className="me-3"
             >
               <i className="bi bi-house-door-fill"> Home</i>
             </Nav.Link>
             <Nav.Link
               href="/mybookings"
-              active={location.pathname === '/mybookings'}
               className="me-3"
             >
               <i className="bi bi-calendar-check-fill"> My Bookings</i>
             </Nav.Link>
             <Nav.Link
               href="/notification"
-              active={location.pathname === '/notification'}
               className="me-3"
             >
               <i className="bi bi-bell-fill"> Notification </i>
             </Nav.Link>
             <Nav.Link
-              href="/profile"
-              active={location.pathname === '/profile'}
+              href="/"
               className="me-3"
             >
               <i className="bi bi-person-fill"> Profile </i>
@@ -60,7 +56,6 @@ export default function Layout() {
 
             {location.pathname !== '/login' && (
               <Nav.Link
-                href="#logout"
                 onClick={handleLogout}
                 className="me-3"
               >

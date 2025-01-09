@@ -9,6 +9,7 @@ import Notifications from "./pages/Notification"
 
 
 
+
 export default function App() {
 
 
@@ -19,7 +20,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route path="*" element={<ErrorPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<Profile />} />
             <Route path="/home" element={<Home />} />
             <Route path="/mybookings" element={<MyBookings />} />
             <Route path="/notification" element={<Notifications />} />
