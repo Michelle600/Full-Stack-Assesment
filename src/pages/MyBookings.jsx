@@ -1,5 +1,3 @@
-
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Table, Alert, Spinner, Button, Modal, Form, Toast } from 'react-bootstrap';
@@ -13,7 +11,7 @@ export default function MyBookings() {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
 
-    const url = import.meta.env.VITE_API_KEY;;
+    const url = import.meta.env.VITE_API_KEY;
 
     // Format date to DD/MM/YYYY
     const formatDate = (dateString) => {
@@ -37,7 +35,6 @@ export default function MyBookings() {
         const startDateObj = new Date(startDate);
         const endDateObj = new Date(endDate);
 
-        // Check if the travel is tomorrow (1 day before travel date)
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         if (startDateObj.toDateString() === tomorrow.toDateString()) {
@@ -48,16 +45,14 @@ export default function MyBookings() {
             );
         }
 
-        // Check if the travel has ended (end date is less than or equal to today)
         if (endDateObj <= today) {
             return (
-                <span style={{ color: 'red', fontWeight: 'bold' }}> {/* Dark Red */}
+                <span style={{ color: 'red', fontWeight: 'bold' }}>
                     Travel Ended 😭
                 </span>
             );
         }
 
-        // Check if the travel is within the next 2 days but hasn't ended yet
         const twoDaysAhead = new Date(today);
         twoDaysAhead.setDate(today.getDate() + 2);
         if (startDateObj <= twoDaysAhead && startDateObj > today && endDateObj > today) {
@@ -68,16 +63,12 @@ export default function MyBookings() {
             );
         }
 
-        // Default return if none of the conditions match
         return (
             <span style={{ color: 'green', fontWeight: 'bold' }}>
                 Upcoming Travel 🤩
             </span>
         );
     };
-
-
-
 
     useEffect(() => {
         const fetchBookings = async () => {
@@ -169,13 +160,15 @@ export default function MyBookings() {
             }}
         >
             <Container>
-                <h2 className="text-center mb-4" style={{ color: "white" }}>My Bookings</h2>
+                <h2 className="text-center mb-4" style={{ color: "white", fontSize: '2rem', fontWeight: '700' }}>
+                    My Bookings
+                </h2>
                 {bookings.length === 0 ? (
                     <Alert variant="info">No bookings found.</Alert>
                 ) : (
-                    <Table striped bordered hover>
+                    <Table striped bordered hover responsive>
                         <thead>
-                            <tr>
+                            <tr style={{ backgroundColor: '#3a3a3a', color: 'white' }}>
                                 <th>#</th>
                                 <th>Booking Type</th>
                                 <th>Location</th>
@@ -190,7 +183,7 @@ export default function MyBookings() {
                         </thead>
                         <tbody>
                             {bookings.map((booking, index) => (
-                                <tr key={booking.id}>
+                                <tr key={booking.id} style={{ transition: 'all 0.3s ease' }}>
                                     <td>{index + 1}</td>
                                     <td>{booking.booking_type}</td>
                                     <td>{booking.location}</td>
@@ -200,15 +193,31 @@ export default function MyBookings() {
                                     <td>{booking.phone}</td>
                                     <td>{booking.email}</td>
                                     <td>
-                                        {/* Display the travel status */}
                                         <span>{getTravelStatus(booking.start_date, booking.end_date)}</span>
                                     </td>
                                     <td>
-                                        <Button variant="warning" size="sm" onClick={() => handleEdit(booking)}>
+                                        <Button
+                                            variant="warning"
+                                            size="sm"
+                                            onClick={() => handleEdit(booking)}
+                                            style={{
+                                                borderRadius: '50%',
+                                                transition: 'background-color 0.3s ease',
+                                            }}
+                                            className="mx-1"
+                                        >
                                             <i className="bi bi-pencil-square"></i>
                                         </Button>
-                                        {' '}
-                                        <Button variant="danger" size="sm" onClick={() => handleDelete(booking.id)}>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() => handleDelete(booking.id)}
+                                            style={{
+                                                borderRadius: '50%',
+                                                transition: 'background-color 0.3s ease',
+                                            }}
+                                            className="mx-1"
+                                        >
                                             <i className="bi bi-trash3-fill"></i>
                                         </Button>
                                     </td>
@@ -219,7 +228,7 @@ export default function MyBookings() {
                 )}
 
                 {/* Edit Booking Modal */}
-                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit Booking</Modal.Title>
                     </Modal.Header>
@@ -241,7 +250,6 @@ export default function MyBookings() {
                                     onChange={(e) => setEditBooking({ ...editBooking, location: e.target.value })}
                                 />
                             </Form.Group>
-
                             <Form.Group className="mb-3">
                                 <Form.Label>Start Date</Form.Label>
                                 <Form.Control
@@ -302,7 +310,15 @@ export default function MyBookings() {
                     onClose={() => setShowToast(false)}
                     delay={10000}
                     autohide
-                    style={{ position: 'fixed', top: '10%', right: '10%', background: "green", color: "white", textAlign: "center" }}
+                    style={{
+                        position: 'fixed',
+                        top: '10%',
+                        right: '10%',
+                        background: "green",
+                        color: "white",
+                        textAlign: "center",
+                        borderRadius: '8px',
+                    }}
                 >
                     <Toast.Body>{toastMessage}</Toast.Body>
                 </Toast>
