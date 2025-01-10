@@ -17,14 +17,12 @@ export default function Home() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
         if (!bookingType || !location || !startDate || !endDate || !pax) {
             alert('Please fill in all the required fields: Booking Type, Location, Start Date, End Date, and Number of Pax.');
             return;
         }
 
         try {
-
             const res = await axios.post(`${url}/bookings`, {
                 booking_type: bookingType,
                 location,
@@ -48,7 +46,6 @@ export default function Home() {
         }
     };
 
-
     useEffect(() => {
         if (showNotification) {
             const timer = setTimeout(() => {
@@ -70,21 +67,20 @@ export default function Home() {
             }}
         >
             <Container>
-                <Row className="justify-content-center" style={{ marginTop: '50px' }}>
-                    <Col md={6} lg={4}>
-                        <h2 className="text-center mb-4 text-white">Make a Booking</h2>
+                <Row className="justify-content-center">
+                    <Col md={6} lg={4} style={{ background: "rgba(255, 255, 255, 0.9)", borderRadius: "15px", padding: "20px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)" }}>
+                        <h2 className="text-center mb-4 text-dark">Make a Booking</h2>
 
                         {/* Show Notification if Form is Submitted */}
                         {showNotification && (
                             <Alert variant="success" className="mb-4 fadeInNotification">
-                                Submitted successfully!
+                                Booking submitted successfully!
                             </Alert>
                         )}
 
                         <Form onSubmit={handleSubmit}>
-                            {/* Booking Type Selection */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Select Booking Type</Form.Label>
+                                <Form.Label>Select Booking Type</Form.Label>
                                 <Form.Control
                                     as="select"
                                     value={bookingType}
@@ -99,9 +95,8 @@ export default function Home() {
                                 </Form.Control>
                             </Form.Group>
 
-                            {/* Location Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Location (Where are you going?)</Form.Label>
+                                <Form.Label>Location</Form.Label>
                                 <Form.Control
                                     type="text"
                                     value={location}
@@ -110,9 +105,8 @@ export default function Home() {
                                 />
                             </Form.Group>
 
-                            {/* Start Date Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Start Date</Form.Label>
+                                <Form.Label>Start Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={startDate}
@@ -121,9 +115,8 @@ export default function Home() {
                                 />
                             </Form.Group>
 
-                            {/* End Date Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">End Date</Form.Label>
+                                <Form.Label>End Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={endDate}
@@ -132,9 +125,8 @@ export default function Home() {
                                 />
                             </Form.Group>
 
-                            {/* Number of Pax Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Number of Pax</Form.Label>
+                                <Form.Label>Number of Pax</Form.Label>
                                 <Form.Control
                                     type="number"
                                     value={pax}
@@ -145,13 +137,12 @@ export default function Home() {
                                         }
                                     }}
                                     placeholder="Enter number of passengers"
-                                    min="0"
+                                    min="1"
                                 />
                             </Form.Group>
 
-                            {/* Phone Number Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Phone Number</Form.Label>
+                                <Form.Label>Phone Number</Form.Label>
                                 <Form.Control
                                     type="tel"
                                     value={phone}
@@ -160,9 +151,8 @@ export default function Home() {
                                 />
                             </Form.Group>
 
-                            {/* Email Input */}
                             <Form.Group className="mb-3">
-                                <Form.Label className="text-white">Email Address</Form.Label>
+                                <Form.Label>Email Address</Form.Label>
                                 <Form.Control
                                     type="email"
                                     value={email}
@@ -171,7 +161,6 @@ export default function Home() {
                                 />
                             </Form.Group>
 
-                            {/* Submit Button */}
                             <Button variant="primary" type="submit" className="w-100">
                                 Book Now
                             </Button>
